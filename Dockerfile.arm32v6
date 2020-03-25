@@ -3,6 +3,8 @@ MAINTAINER Eduard Asriyan <ed-asriyan@protonmail.com>
 
 WORKDIR /application
 
+RUN apk add gcc make musl-dev postgresql-dev linux-headers --no-cache
+
 ADD requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
