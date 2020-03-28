@@ -20,8 +20,8 @@ if os.getenv("USE_STUBS", False):
         @staticmethod
         def get_coordinates():
             time.sleep(0.9 + random() * 0.1)
-            GpsSensor.__lat += random() / 500
-            GpsSensor.__lon += random() / 500
+            GpsSensor.__lat += (random() - 0.5) / 10000
+            GpsSensor.__lon += (random() - 0.5) / 10000
             logging.debug("GPS generated: %s,%s", GpsSensor.__lat, GpsSensor.__lon)
             return GpsCoordinates(lat=GpsSensor.__lat, lon=GpsSensor.__lon)
 
