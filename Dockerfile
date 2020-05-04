@@ -8,7 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ADD Navio2/Python/navio2 navio2
 ADD main.py .
-ADD database.py .
 ADD gps.py .
 
-CMD python main.py --db-uri $DB_URI --sensor-id 2
+CMD python main.py --uri $URI --sensor-id 2

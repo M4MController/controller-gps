@@ -1,11 +1,11 @@
 import logging
 import os
+import requests
 import sys
 import time
 from argparse import ArgumentParser
 from random import random
 
-from database import SensorData, get_db
 from gps import GpsCoordinates, GpsSensor
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -28,7 +28,7 @@ if os.getenv("USE_STUBS", False):
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument("--db-uri", required=True)
+    parser.add_argument("--uri", required=True)
     parser.add_argument("--sensor-id", required=True, type=int)
 
     args = parser.parse_args()
@@ -40,7 +40,10 @@ def main():
         try:
             coordinates = gps.get_coordinates()
 
-            SensorData.save_new(get_db(args.db_uri), args.sensor_id, coordinates)
+            requests.post(
+                '{uri}/private/sensor/{sensor_id}/data'.format(uri=args.uri, sensor_id=args.sensor_id),
+                json={'value': {'lat': coordinates.lat, 'lon': coordinates.lon}},
+            )
         except Exception as e:
             logging.error(e)
 
