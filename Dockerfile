@@ -10,4 +10,4 @@ ADD Navio2/Python/navio2 navio2
 ADD main.py .
 ADD gps.py .
 
-CMD python main.py --uri $URI --sensor-id 2
+CMD python main.py --uri $URI
