@@ -44,7 +44,7 @@ def init_sensor(uri, sensor_uuid):
             '{uri}/private/sensor/{sensor_uuid}/register'.format(uri=uri, sensor_uuid=sensor_uuid),
             json={'sensor_type': 6, 'status': 1},
     ).status_code < 300):
-        pass
+        time.sleep(1)
 
 
 def send_coordinates(uri, sensor_uuid, coordinates):
