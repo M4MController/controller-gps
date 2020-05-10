@@ -13,6 +13,9 @@ class GpsCoordinates:
     def __str__(self):
         return "{lat},{lon}".format(lat=self.lat, lon=self.lon)
 
+    def is_valid(self):
+        return self.lat and self.lon
+
 
 class GpsSensor:
     def __init__(self):

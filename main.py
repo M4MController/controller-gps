@@ -68,7 +68,9 @@ def main():
 
     while True:
         try:
-            send_coordinates(args.uri, sensor_uuid, gps.get_coordinates())
+            coordinates = gps.get_coordinates()
+            if coordinates.is_valid():
+                send_coordinates(args.uri, sensor_uuid, coordinates)
         except Exception as e:
             logging.error(e)
 
