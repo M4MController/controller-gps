@@ -1,6 +1,5 @@
 import logging
 import os
-import uuid
 
 import requests
 import sys
@@ -9,6 +8,7 @@ from argparse import ArgumentParser
 from random import random
 
 from gps import GpsCoordinates, GpsSensor
+from hardware import generate_uuid
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -26,17 +26,6 @@ if os.getenv("USE_STUBS", False):
             GpsSensor.__lon += (random() - 0.5) / 10000
             logging.debug("GPS generated: %s,%s", GpsSensor.__lat, GpsSensor.__lon)
             return GpsCoordinates(lat=GpsSensor.__lat, lon=GpsSensor.__lon)
-
-
-def get_sensor_uuid():
-    if not os.path.exists('uuid'):
-        sensor_uuid = uuid.uuid4().hex
-        with open('uuid', 'w+') as f:
-            f.write(sensor_uuid)
-    else:
-        with open('uuid', 'r') as f:
-            sensor_uuid = f.readline()
-    return sensor_uuid
 
 
 def init_sensor(uri, sensor_uuid):
@@ -60,7 +49,7 @@ def main():
 
     args = parser.parse_args()
 
-    sensor_uuid = get_sensor_uuid()
+    sensor_uuid = generate_uuid()
     init_sensor(args.uri, sensor_uuid)
 
     gps = GpsSensor()

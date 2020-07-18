@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ADD Navio2/Python/navio2 navio2
 ADD main.py .
+ADD hardware.py .
 ADD gps.py .
 
 CMD python main.py --uri $URI
